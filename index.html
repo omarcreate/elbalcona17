@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=0.5" />
-  <title>الْــبَــلـــكُـونَــة 🥂🦋 | </title>
+  <title>الْــبَــلـــكُـونَــة 🥂🦋 |</title>
 
   <!-- إزالة أي Service Worker قديم (sw.js) يعترض اتصالات Firebase على الدومين -->
   <script>
@@ -361,6 +361,28 @@
       gap: 0.45rem;
     }
 
+    .toggle-questions-btn {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 0.48rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.25s ease;
+    }
+
+    .toggle-questions-btn:hover,
+    .toggle-questions-btn.active-open {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+    }
+
     .categories-tabs {
       display: flex;
       align-items: center;
@@ -524,15 +546,21 @@
     }
 
     /* ==========================================================================
-       6. قائمة استعراض واختيار أسئلة القسم المفتوح بسلاسة
+       6. قائمة استعراض واختيار أسئلة القسم (مخفية إجبارياً وافتراضياً إلا بالزرار)
        ========================================================================== */
     .category-questions-panel {
+      display: none !important;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 24px;
       padding: 1.35rem;
       box-shadow: var(--shadow-glow);
       transition: all 0.3s ease;
+    }
+
+    .category-questions-panel.force-visible {
+      display: block !important;
+      animation: fadeInGrid 0.3s ease;
     }
 
     .panel-top-bar {
@@ -742,7 +770,7 @@
     }
 
     /* ==========================================================================
-       8. الفوتر وزرار القفل الصغير في آخر الصفحة للداش بورد
+       8. الفوتر وأيقونات المواقع الـ 6 وزرار القفل الصغير للداش بورد
        ========================================================================== */
     .site-footer {
       margin-top: auto;
@@ -759,15 +787,46 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 1rem;
       color: var(--text-secondary);
-      font-size: 0.92rem;
-      font-weight: 700;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .footer-links-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-site-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .footer-site-icon:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      transform: translateY(-3px) scale(1.08);
+      box-shadow: 0 8px 18px rgba(56, 189, 248, 0.35);
     }
 
     .secret-lock-btn {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       border: 1px solid var(--border-color);
       background: var(--bg-card);
@@ -777,7 +836,7 @@
       justify-content: center;
       font-size: 0.95rem;
       cursor: pointer;
-      opacity: 0.65;
+      opacity: 0.75;
       transition: all 0.25s ease;
     }
 
@@ -785,7 +844,7 @@
       opacity: 1;
       color: var(--accent-gold);
       border-color: var(--accent-gold);
-      transform: scale(1.08);
+      transform: translateY(-3px) scale(1.08);
     }
 
     /* ==========================================================================
@@ -1000,13 +1059,13 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="manifest" href="./manifest.json?v=v1794876466063">
-    <meta name="theme-color" content="#80a7b3">
-    <link rel="apple-touch-icon" href="./icon-192.png?v=v1794876466063">
+    <link rel="manifest" href="./manifest.json?v=v1794878379077">
+    <meta name="theme-color" content="#9d4ae8">
+    <link rel="apple-touch-icon" href="./icon-192.png?v=v1794878379077">
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js?v=v1794876466063')
+          navigator.serviceWorker.register('./sw.js?v=v1794878379077')
             .then(reg => console.log('SW Registered'))
             .catch(err => console.log('SW Failed', err));
         });
@@ -1067,12 +1126,12 @@
       </div>
     </section>
 
-    <!-- شريط التبديل السلس بين الأقسام (الكل + الأقسام المضافة) -->
+    <!-- شريط التبديل السلس بين الأقسام (الكل + الأقسام المضافة) مع زرار الإظهار والإخفاء -->
     <section class="smooth-categories-wrapper" id="smoothCategoriesSection">
       <div class="smooth-cat-header">
         <span class="smooth-cat-title">📂 اختر القسم للتبديل السلس أو السحب العشوائي:</span>
-        <button class="action-btn" style="padding:0.35rem 0.85rem; font-size:0.82rem;" onclick="toggleQuestionsListVisibility()">
-          <span id="toggleListBtnText">👁️ إظهار / إخفاء قائمة أسئلة القسم</span>
+        <button class="toggle-questions-btn" id="toggleQuestionsBtn" onclick="toggleQuestionsListVisibility()">
+          <span id="toggleListBtnText">👁️ إظهار قائمة أسئلة القسم</span>
         </button>
       </div>
       <div class="categories-tabs" id="categoriesTabsContainer">
@@ -1102,11 +1161,11 @@
       </div>
     </section>
 
-    <!-- لوحة فتح واستعراض أسئلة القسم المحدد أو "الكل" واختيار أي سؤال منها -->
-    <section class="category-questions-panel" id="categoryQuestionsPanel" style="display:none;">
+    <!-- لوحة فتح واستعراض أسئلة القسم (مخفية إجبارياً وافتراضياً ولا تظهر إلا بالضغط على الزرار) -->
+    <section class="category-questions-panel" id="categoryQuestionsPanel" style="display: none;">
       <div class="panel-top-bar">
         <div class="panel-title">
-          <span id="currentOpenedCatTitle">🌟 أسئلة قسم: الكل</span>
+          <span id="currentOpenedCatTitle">🌟 أسئلة قسم: الكل (0 سؤال)</span>
         </div>
         <div style="display:flex; gap:0.6rem; flex-wrap:wrap; flex:1; justify-content:flex-end;">
           <input
@@ -1119,22 +1178,48 @@
           <button class="action-btn" style="padding:0.45rem 0.95rem; font-size:0.84rem;" onclick="copyAllFilteredQuestions()">
             📦 نسخ أسئلة القسم
           </button>
+          <button class="action-btn" style="padding:0.45rem 0.95rem; font-size:0.84rem;" onclick="toggleQuestionsListVisibility()">
+            🙈 إخفاء القائمة
+          </button>
         </div>
       </div>
 
       <div class="questions-grid" id="questionsGridContainer">
-        <!-- يتم عرض أسئلة القسم المختار هنا لتختار منها براحتك -->
+        <div style="grid-column: 1 / -1; text-align:center; padding:2rem; color:var(--text-secondary);">
+          لا توجد أسئلة في هذا القسم حالياً. يمكنك إضافة الأسئلة من قفل الداش بورد أسفل الصفحة!
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- ==================== 3. الفوتر وزرار القفل السري للداش بورد ==================== -->
+  <!-- ==================== 3. الفوتر وأيقونات المواقع الـ 6 وزرار القفل السري ==================== -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <span>الْــبَــلـــكُـونَــة 🥂🦋 — جميع الحقوق محفوظة لسهرات كلوب هاوس</span>
-      <button class="secret-lock-btn" onclick="openLockModal()" title="لوحة التحكم">
-        🔒
-      </button>
+      <span>الْــبَــلـــكُـونَــة 🥂🦋 — جميع الحقوق محفوظة ȷَᓄ᎗ُɕ</span>
+
+      <div class="footer-links-group">
+        <a href="https://elbalcona17.vercel.app/" target="_blank" rel="noopener noreferrer" class="footer-site-icon" title="الْبَلكُونَة Vercel">
+          🥂
+        </a>
+        <a href="https://omarwebsites.github.io/1/" target="_blank" rel="noopener noreferrer" class="footer-site-icon" title="Omar Websites 1">
+          🌐
+        </a>
+        <a href="https://omarcomweb.github.io/17topics/" target="_blank" rel="noopener noreferrer" class="footer-site-icon" title="17 Topics">
+          🎙️
+        </a>
+        <a href="https://omarcreatee.github.io/1/" target="_blank" rel="noopener noreferrer" class="footer-site-icon" title="Omar Create 1">
+          ✨
+        </a>
+        <a href="https://omarcreatee.github.io/5/" target="_blank" rel="noopener noreferrer" class="footer-site-icon" title="Omar Create 5">
+          🚀
+        </a>
+        <a href="https://omarcomweb.github.io/17topics/" target="_blank" rel="noopener noreferrer" class="footer-site-icon" title="17 Topics Hub">
+          🦋
+        </a>
+        <button class="secret-lock-btn" onclick="openLockModal()" title="لوحة التحكم">
+          🔒
+        </button>
+      </div>
     </div>
   </footer>
 
@@ -1357,7 +1442,8 @@
     let appData = loadLocalData();
     let activeCategoryId = localStorage.getItem("elbalkona_active_pool") || "all";
     let lastPickedQuestionText = "";
-    let isQuestionsListOpen = true;
+    // مخفية إجبارياً وافتراضياً عند فتح الموقع ولا تفتح إلا بالضغط على الزرار
+    let isQuestionsListOpen = false;
     let isUploadingToServer = false;
 
     // تنبيه المستخدم إذا حاول إغلاق الصفحة أثناء عملية الرفع على السيرفر
@@ -1419,7 +1505,6 @@
 
     const sleepDelay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-    // دالة مساعدة تمنع أي وعد (Promise) من التعليق لأكثر من المدة المحددة
     function withTimeoutGuard(promise, maxWaitMs = 2200) {
       return Promise.race([
         promise,
@@ -1449,7 +1534,7 @@
 
         const uploadTasks = [];
 
-        // 1. الرفع المباشر عبر Realtime Database REST API (سريع ولا يتأثر بأي Service Worker)
+        // 1. الرفع المباشر عبر Realtime Database REST API
         const rtdbRestPromise = fetch(
           `https://backkeenddd-default-rtdb.firebaseio.com/balcony_club/${FIREBASE_DOC_PATH}.json`,
           {
@@ -1575,7 +1660,7 @@
     })();
 
     // =========================================================================
-    // التبديل السلس بين الأقسام ("الكل" + الأقسام المضافة) واستعراض الأسئلة
+    // التبديل السلس بين الأقسام ("الكل" + الأقسام المضافة) والتحكم الصارم في إخفاء/إظهار القائمة
     // =========================================================================
     function getAllQuestionsFlat() {
       const list = [];
@@ -1631,7 +1716,7 @@
     window.selectCategoryTab = function (catId) {
       activeCategoryId = catId || "all";
       localStorage.setItem("elbalkona_active_pool", activeCategoryId);
-      isQuestionsListOpen = true;
+      // لا يتم فتح القائمة تلقائياً، تظل مخفية إجبارياً إلا إذا ضغط المستخدم على زرار الإظهار
       renderCategoriesTabs();
       renderQuestionsGrid();
     };
@@ -1639,6 +1724,10 @@
     window.toggleQuestionsListVisibility = function () {
       isQuestionsListOpen = !isQuestionsListOpen;
       renderQuestionsGrid();
+      if (isQuestionsListOpen) {
+        const panel = document.getElementById("categoryQuestionsPanel");
+        if (panel) panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
     };
 
     window.selectQuestionToSpotlight = function (categoryName, qText, qNum) {
@@ -1663,19 +1752,33 @@
       const panel = document.getElementById("categoryQuestionsPanel");
       const grid = document.getElementById("questionsGridContainer");
       const titleEl = document.getElementById("currentOpenedCatTitle");
+      const toggleBtn = document.getElementById("toggleQuestionsBtn");
+      const toggleBtnText = document.getElementById("toggleListBtnText");
       if (!panel || !grid || !titleEl) return;
 
-      const cats = appData.categories || [];
-      const allFlat = getAllQuestionsFlat();
+      // تحديث شكل ونص زرار الإظهار والإخفاء
+      if (toggleBtn && toggleBtnText) {
+        if (isQuestionsListOpen) {
+          toggleBtn.classList.add("active-open");
+          toggleBtnText.textContent = "🙈 إخفاء قائمة أسئلة القسم";
+        } else {
+          toggleBtn.classList.remove("active-open");
+          toggleBtnText.textContent = "👁️ إظهار قائمة أسئلة القسم";
+        }
+      }
 
-      // إذا لم يضف المستخدم أي أقسام أو أسئلة بعد، تظل اللوحة مخفية والصفحة نظيفة
-      if (cats.length === 0 && allFlat.length === 0) {
+      // إخفاء إجباري وافتراضي طالما لم يضغط المستخدم على زرار الإظهار
+      if (!isQuestionsListOpen) {
+        panel.classList.remove("force-visible");
         panel.style.display = "none";
         return;
       }
 
-      panel.style.display = isQuestionsListOpen ? "block" : "none";
-      if (!isQuestionsListOpen) return;
+      panel.classList.add("force-visible");
+      panel.style.display = "block";
+
+      const cats = appData.categories || [];
+      const allFlat = getAllQuestionsFlat();
 
       const activeCatObj = cats.find((c) => c.id === activeCategoryId);
       titleEl.textContent =
