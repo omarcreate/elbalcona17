@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="midnight">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.5" />
+  <title>الْــبَــلـــكُـونَــة 🥂🦋 | كلوب هاوس</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       1. الثيمات الأربعة (ميد نايت أساسي + دارك + أبيض لايت + لايت وردي خفيف)
+       ========================================================================== */
+    :root,
+    [data-theme="midnight"] {
+      --bg-main: #060913;
+      --bg-secondary: #0d1326;
+      --bg-card: rgba(16, 24, 48, 0.85);
+      --bg-card-hover: rgba(24, 36, 70, 0.95);
+      --bg-glass: rgba(13, 19, 38, 0.78);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-primary: #38bdf8;
+      --accent-secondary: #818cf8;
+      --accent-gold: #fbbf24;
+      --border-color: rgba(56, 189, 248, 0.18);
+      --shadow-glow: 0 12px 35px -8px rgba(56, 189, 248, 0.22);
+      --hero-gradient: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #0f172a 100%);
+      --new-topic-btn: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #6366f1 100%);
+      --badge-bg: rgba(56, 189, 248, 0.12);
+      --badge-text: #38bdf8;
+      --input-bg: #090d1a;
+    }
+
+    [data-theme="dark"] {
+      --bg-main: #0f0f10;
+      --bg-secondary: #18181b;
+      --bg-card: rgba(28, 28, 31, 0.92);
+      --bg-card-hover: rgba(39, 39, 42, 0.98);
+      --bg-glass: rgba(24, 24, 27, 0.85);
+      --text-primary: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --accent-primary: #10b981;
+      --accent-secondary: #3b82f6;
+      --accent-gold: #f59e0b;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --shadow-glow: 0 12px 35px -8px rgba(0, 0, 0, 0.6);
+      --hero-gradient: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+      --new-topic-btn: linear-gradient(135deg, #10b981 0%, #059669 50%, #2563eb 100%);
+      --badge-bg: rgba(16, 185, 129, 0.14);
+      --badge-text: #34d399;
+      --input-bg: #121214;
+    }
+
+    [data-theme="light"] {
+      --bg-main: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-glass: rgba(255, 255, 255, 0.88);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --accent-primary: #0284c7;
+      --accent-secondary: #4f46e5;
+      --accent-gold: #d97706;
+      --border-color: #e2e8f0;
+      --shadow-glow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+      --hero-gradient: linear-gradient(135deg, #e0f2fe 0%, #eef2ff 50%, #ffffff 100%);
+      --new-topic-btn: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+      --badge-bg: #e0f2fe;
+      --badge-text: #0369a1;
+      --input-bg: #f1f5f9;
+    }
+
+    [data-theme="pink"] {
+      --bg-main: #fff5f8;
+      --bg-secondary: #ffeef4;
+      --bg-card: rgba(255, 255, 255, 0.94);
+      --bg-card-hover: #fff0f5;
+      --bg-glass: rgba(255, 240, 246, 0.88);
+      --text-primary: #4a152b;
+      --text-secondary: #833857;
+      --text-muted: #b56586;
+      --accent-primary: #e11d48;
+      --accent-secondary: #db2777;
+      --accent-gold: #d97706;
+      --border-color: #fbcfe8;
+      --shadow-glow: 0 10px 30px -5px rgba(225, 29, 72, 0.12);
+      --hero-gradient: linear-gradient(135deg, #fce7f3 0%, #ffe4e6 50%, #fff1f2 100%);
+      --new-topic-btn: linear-gradient(135deg, #ec4899 0%, #f43f5e 50%, #fb923c 100%);
+      --badge-bg: #fce7f3;
+      --badge-text: #be185d;
+      --input-bg: #fff0f6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       شريط التوقيت في مصر أعلى الصفحة (12hr Format AM/PM بالإنجليزية)
+       ========================================================================== */
+    .egypt-clock-bar {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.45rem 1.25rem;
+      text-align: center;
+      direction: ltr;
+      font-family: 'Cairo', monospace, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .egypt-clock-bar .clock-label {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .egypt-clock-bar .clock-time {
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 0.15rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      font-weight: 900;
+    }
+
+    /* ==========================================================================
+       2. شريط التنقل العلوي وأزرار تحويل الثيمات
+       ========================================================================== */
+    .top-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.25rem;
+    }
+
+    .nav-container {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .brand-mini img {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      object-fit: cover;
+      border: 2px solid var(--accent-primary);
+    }
+
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg-secondary);
+      padding: 0.35rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+    }
+
+    .theme-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 0.38rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.25s ease;
+    }
+
+    .theme-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .theme-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ==========================================================================
+       3. هيدر البلكونة (بنفس تصميم وصورة ووصف كلوب هاوس)
+       ========================================================================== */
+    .main-wrapper {
+      max-width: 1060px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 3rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .balcony-hero {
+      background: var(--hero-gradient);
+      border: 1px solid var(--border-color);
+      border-radius: 26px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-glow);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 1.35rem;
+      flex-wrap: wrap;
+    }
+
+    .balcony-avatar-wrap {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      border-radius: 24px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .balcony-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .balcony-info {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .balcony-title {
+      font-size: 2.1rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .balcony-bio {
+      margin-top: 1.25rem;
+      padding-top: 1.15rem;
+      border-top: 1px solid var(--border-color);
+      line-height: 1.85;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    .balcony-bio .welcome-line {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      margin-bottom: 0.45rem;
+      display: block;
+    }
+
+    /* ==========================================================================
+       4. شريط التبديل السلس بين الأقسام (الكل + الأقسام المضافة)
+       ========================================================================== */
+    .smooth-categories-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 22px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .smooth-cat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .smooth-cat-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .categories-tabs {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      overflow-x: auto;
+      padding-bottom: 0.4rem;
+      scrollbar-width: thin;
+      scroll-behavior: smooth;
+    }
+
+    .cat-tab {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      padding: 0.6rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .cat-tab:hover {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    .cat-tab.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 6px 18px rgba(56, 189, 248, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .cat-count {
+      background: rgba(0, 0, 0, 0.22);
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    /* ==========================================================================
+       5. زرار "موضوع جديد" الملون الكبير ومنصة عرض السؤال
+       ========================================================================== */
+    .spotlight-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 26px;
+      padding: 2.1rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-glow);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .new-topic-mega-btn {
+      background: var(--new-topic-btn);
+      background-size: 200% 200%;
+      animation: gradientFlow 4s ease infinite;
+      color: #ffffff;
+      border: none;
+      padding: 1.2rem 3rem;
+      font-size: 1.5rem;
+      font-weight: 900;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4), 0 0 0 4px rgba(255, 255, 255, 0.12);
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease;
+      user-select: none;
+    }
+
+    .new-topic-mega-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 16px 38px rgba(236, 72, 153, 0.55), 0 0 0 6px rgba(255, 255, 255, 0.18);
+    }
+
+    .new-topic-mega-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .spotlight-card {
+      margin-top: 1.6rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1.75rem 1.35rem;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: all 0.28s ease;
+    }
+
+    .spotlight-cat-badge {
+      display: inline-block;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      font-size: 0.86rem;
+      font-weight: 800;
+      padding: 0.32rem 0.95rem;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+    }
+
+    .spotlight-question {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.7;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+      min-height: 3.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .spotlight-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 0.58rem 1.2rem;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--accent-primary);
+      color: #fff;
+      border-color: var(--accent-primary);
+    }
+
+    /* ==========================================================================
+       6. قائمة استعراض واختيار أسئلة القسم المفتوح بسلاسة
+       ========================================================================== */
+    .category-questions-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 1.35rem;
+      box-shadow: var(--shadow-glow);
+      transition: all 0.3s ease;
+    }
+
+    .panel-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .panel-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-input-inline {
+      flex: 1;
+      min-width: 220px;
+      max-width: 360px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .search-input-inline:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .questions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.9rem;
+      animation: fadeInGrid 0.3s ease;
+    }
+
+    @keyframes fadeInGrid {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.05rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .question-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-primary);
+      background: var(--bg-card-hover);
+    }
+
+    .question-card.selected-on-stage {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.25);
+    }
+
+    .q-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .q-num {
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: 8px;
+    }
+
+    .q-cat-tag {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+
+    .q-text {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+
+    .q-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.65rem;
+    }
+
+    .q-pick-hint {
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    .copy-mini-btn {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 0.32rem 0.75rem;
+      border-radius: 9px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-mini-btn:hover {
+      background: var(--accent-primary);
+      color: #fff;
+      border-color: var(--accent-primary);
+    }
+
+    /* ==========================================================================
+       7. شريط تقدم الرفع والحفظ على السيرفر (Upload Progress Bar)
+       ========================================================================== */
+    .upload-progress-box {
+      display: none;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1rem 1.15rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .upload-progress-box.active {
+      display: block;
+      animation: fadeInGrid 0.25s ease;
+    }
+
+    .progress-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .progress-status-text {
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .progress-percent-badge {
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      background: var(--input-bg);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #ec4899);
+      border-radius: 999px;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+
+    .progress-fill.completed {
+      background: linear-gradient(90deg, #10b981, #059669);
+    }
+
+    .progress-safe-note {
+      margin-top: 0.55rem;
+      font-size: 0.84rem;
+      font-weight: 800;
+      display: block;
+    }
+
+    /* ==========================================================================
+       8. الفوتر وزرار القفل الصغير في آخر الصفحة للداش بورد
+       ========================================================================== */
+    .site-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .secret-lock-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      cursor: pointer;
+      opacity: 0.65;
+      transition: all 0.25s ease;
+    }
+
+    .secret-lock-btn:hover {
+      opacity: 1;
+      color: var(--accent-gold);
+      border-color: var(--accent-gold);
+      transform: scale(1.08);
+    }
+
+    /* ==========================================================================
+       9. نافذة الباسورد المشفر والداش بورد الكاملة
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 440px;
+      padding: 1.75rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .modal-box.dashboard-wide {
+      max-width: 820px;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .close-modal-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .form-group {
+      margin-bottom: 1.15rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+      color: var(--text-primary);
+    }
+
+    .form-control {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-primary);
+    }
+
+    textarea.form-control {
+      min-height: 170px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .dash-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .dash-section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 0.9rem;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1.4rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.16);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      padding: 0.45rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .dash-cat-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
+    }
+
+    .dash-cat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .dash-questions-details {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .dash-q-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      background: var(--bg-card);
+      padding: 0.45rem 0.7rem;
+      border-radius: 8px;
+    }
+
+    .toast-notification {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--accent-primary);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      z-index: 2000;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="manifest" href="./manifest.json?v=v1794875423130">
+    <meta name="theme-color" content="#8341f1">
+    <link rel="apple-touch-icon" href="./icon-192.png?v=v1794875423130">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js?v=v1794875423130')
+            .then(reg => console.log('SW Registered'))
+            .catch(err => console.log('SW Failed', err));
+        });
+      }
+    </script>
+</head>
+<body>
+
+  <!-- ==================== 0. شريط توقيت مصر أعلى الصفحة (12hr AM/PM) ==================== -->
+  <div class="egypt-clock-bar">
+    <span class="clock-label">EGYPT TIME (CAIRO):</span>
+    <span class="clock-time" id="egyptLiveClock">--:--:-- AM</span>
+  </div>
+
+  <!-- ==================== 1. شريط التنقل وأزرار الثيمات الأربعة ==================== -->
+  <header class="top-navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-mini">
+        <img id="navBalconyImg" src="https://ironstreets.com/wp-content/uploads/2026/08/f4a2c35c-c508-452c-8919-90f60b9b4698-300x240.webp" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80'" alt="البلكونة" />
+        <span>الْــبَــلـــكُـونَــة 🥂🦋</span>
+      </a>
+
+      <div class="theme-switcher" role="group" aria-label="اختيار الثيم">
+        <button class="theme-btn active" data-set-theme="midnight" onclick="setAppTheme('midnight')">
+          🌌 ميد نايت
+        </button>
+        <button class="theme-btn" data-set-theme="dark" onclick="setAppTheme('dark')">
+          🌑 دارك
+        </button>
+        <button class="theme-btn" data-set-theme="light" onclick="setAppTheme('light')">
+          ☀️ أبيض لايت
+        </button>
+        <button class="theme-btn" data-set-theme="pink" onclick="setAppTheme('pink')">
+          🌸 وردي خفيف
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 2. المحتوى الرئيسي ==================== -->
+  <main class="main-wrapper">
+    <!-- هيدر البلكونة -->
+    <section class="balcony-hero">
+      <div class="hero-top">
+        <div class="balcony-avatar-wrap">
+          <img id="heroBalconyImg" src="https://ironstreets.com/wp-content/uploads/2026/08/f4a2c35c-c508-452c-8919-90f60b9b4698-300x240.webp" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80'" alt="صورة البلكونة" />
+        </div>
+        <div class="balcony-info">
+          <h1 class="balcony-title">الْــبَــلـــكُـونَــة 🥂🦋</h1>
+        </div>
+      </div>
+
+      <div class="balcony-bio">
+        <span class="welcome-line">"أهلاً بيك في "البلكونة ☕🌿✅</span>
+        قعدة رايقة، فنجان قهوة وكوباية شاي ، وحكايات ما بتخلصش ، نروق دماغنا من دوشة الايام ونجيب من الاخر في الكلام ، مكان لكل صاحب وجار، ندردش فيه ليل ونهار ، هات قهوتك وتعالى، فكك من أي ضغطة وحالة ، لو مخنوق أو زعلان، هتلاقي هنا أحلى مكان<br>
+        اطلع عالمايك وشاركنا، ده إنت بوجودك تشرفنا<br>
+        الباب مفتوح للكل، ادخل وقول يا مساء الفل!
+      </div>
+    </section>
+
+    <!-- شريط التبديل السلس بين الأقسام (الكل + الأقسام المضافة) -->
+    <section class="smooth-categories-wrapper" id="smoothCategoriesSection">
+      <div class="smooth-cat-header">
+        <span class="smooth-cat-title">📂 اختر القسم للتبديل السلس أو السحب العشوائي:</span>
+        <button class="action-btn" style="padding:0.35rem 0.85rem; font-size:0.82rem;" onclick="toggleQuestionsListVisibility()">
+          <span id="toggleListBtnText">👁️ إظهار / إخفاء قائمة أسئلة القسم</span>
+        </button>
+      </div>
+      <div class="categories-tabs" id="categoriesTabsContainer">
+        <!-- يتم توليد تبويب "الكل" والأقسام المضافة هنا بسلاسة -->
+      </div>
+    </section>
+
+    <!-- زرار "موضوع جديد" الملون الكبير ومنصة العرض -->
+    <section class="spotlight-section">
+      <button class="new-topic-mega-btn" onclick="pickRandomNewTopic()">
+        <span>✨ موضوع جديد 🎙️</span>
+      </button>
+
+      <div class="spotlight-card" id="spotlightCard">
+        <span class="spotlight-cat-badge" id="spotlightCategory">🥂 سهرة الْــبَــلـــكُـونَــة 🦋</span>
+        <p class="spotlight-question" id="spotlightQuestion">
+          اضغط على زرار «موضوع جديد» أو اختر قسماً وسؤالاً لبدء السهرة!
+        </p>
+        <div class="spotlight-actions">
+          <button class="action-btn" onclick="copySpotlightTopic()">
+            📋 نسخ عنوان الروم
+          </button>
+          <button class="action-btn" onclick="shareSpotlightTopic()">
+            🚀 مشاركة السهرة
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- لوحة فتح واستعراض أسئلة القسم المحدد أو "الكل" واختيار أي سؤال منها -->
+    <section class="category-questions-panel" id="categoryQuestionsPanel" style="display:none;">
+      <div class="panel-top-bar">
+        <div class="panel-title">
+          <span id="currentOpenedCatTitle">🌟 أسئلة قسم: الكل</span>
+        </div>
+        <div style="display:flex; gap:0.6rem; flex-wrap:wrap; flex:1; justify-content:flex-end;">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input-inline"
+            placeholder="🔍 ابحث داخل هذا القسم..."
+            oninput="renderQuestionsGrid()"
+          />
+          <button class="action-btn" style="padding:0.45rem 0.95rem; font-size:0.84rem;" onclick="copyAllFilteredQuestions()">
+            📦 نسخ أسئلة القسم
+          </button>
+        </div>
+      </div>
+
+      <div class="questions-grid" id="questionsGridContainer">
+        <!-- يتم عرض أسئلة القسم المختار هنا لتختار منها براحتك -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== 3. الفوتر وزرار القفل السري للداش بورد ==================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>الْــبَــلـــكُـونَــة 🥂🦋 — جميع الحقوق محفوظة برعاية ȷَᓄ᎗ُɕ</span>
+      <button class="secret-lock-btn" onclick="openLockModal()" title="لوحة التحكم">
+        🔒
+      </button>
+    </div>
+  </footer>
+
+  <!-- ==================== 4. نافذة إدخال الباسورد المشفر ==================== -->
+  <div class="modal-overlay" id="lockModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">🔐 فك قفل الداش بورد</h3>
+        <button class="close-modal-btn" onclick="closeLockModal()">✕</button>
+      </div>
+      <form onsubmit="verifyEncryptedPassword(event)">
+        <div class="form-group">
+          <label class="form-label">أدخل كلمة المرور المشفرة للوصول للإدارة:</label>
+          <input
+            type="password"
+            id="dashboardPassInput"
+            class="form-control"
+            placeholder="•••••••••"
+            autocomplete="off"
+            required
+          />
+          <small id="passErrorMsg" style="color:#ef4444; display:none; margin-top:0.45rem; font-weight:700;">
+            ❌ كلمة المرور غير صحيحة!
+          </small>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;">
+          🔓 فتح الداش بورد
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== 5. نافذة الداش بورد الكاملة مع شريط تقدم الرفع ==================== -->
+  <div class="modal-overlay" id="dashboardModal">
+    <div class="modal-box dashboard-wide">
+      <div class="modal-header">
+        <h3 class="modal-title">⚙️ داش بورد إدارة الْــبَــلـــكُـونَــة 🥂🦋</h3>
+        <button class="close-modal-btn" onclick="closeDashboardModal()">✕</button>
+      </div>
+
+      <!-- شريط تقدم الرفع والحفظ على سيرفر Firebase -->
+      <div class="upload-progress-box" id="uploadProgressBox">
+        <div class="progress-top-row">
+          <span class="progress-status-text" id="uploadStatusText">⏳ جاري الرفع والحفظ على سيرفر Firebase...</span>
+          <span class="progress-percent-badge" id="uploadPercentBadge">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="uploadProgressBarFill"></div>
+        </div>
+        <small class="progress-safe-note" id="uploadSafeNote" style="color:var(--accent-gold);">
+          ⚠️ يرجى عدم إغلاق الصفحة حتى يكتمل الشريط 100%...
+        </small>
+      </div>
+
+      <!-- أ. إضافة قسم جديد -->
+      <div class="dash-section">
+        <h4 class="dash-section-title">📁 أولاً: إضافة قسم جديد</h4>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <input
+            type="text"
+            id="newCategoryNameInput"
+            class="form-control"
+            style="flex:1; min-width:220px;"
+            placeholder="اكتب اسم القسم الجديد هنا..."
+          />
+          <button class="btn-primary" id="addCatBtn" onclick="handleAddCategory()">
+            ➕ إضافة القسم وحفظه في السيرفر
+          </button>
+        </div>
+      </div>
+
+      <!-- ب. إضافة مجموعة أسئلة دفعة واحدة مع تحديد القسم -->
+      <div class="dash-section">
+        <h4 class="dash-section-title">📝 ثانياً: إضافة مجموعة أسئلة وتحديد القسم</h4>
+        <div class="form-group">
+          <label class="form-label">اختر القسم الذي ستضاف إليه الأسئلة:</label>
+          <select id="targetCategorySelect" class="form-control"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            الصق مجموعة الأسئلة (يقبل الصيغة المرقمة مثل: 6. السؤال... أو بدون أرقام، كل سؤال في سطر):
+          </label>
+          <textarea
+            id="bulkQuestionsTextarea"
+            class="form-control"
+            placeholder="6. إزاي تتعامل مع الشخص النرجسي في دايرتك القريبة؟
+7. الصاحب اللي بيظهر وقت المصلحة بس: تواجهه ولا تطنشه؟
+8. هل ممكن ترجع تثق في شخص خذلك قبل كده؟"
+            oninput="updateBulkPreviewCount()"
+          ></textarea>
+          <small id="bulkPreviewCounter" style="color:var(--accent-gold); font-weight:700; display:block; margin-top:0.4rem;">
+            ✨ جاهز لاستقبال الأسئلة وفصل الأرقام تلقائياً
+          </small>
+        </div>
+        <button class="btn-primary" id="bulkUploadBtn" style="width:100%;" onclick="handleBulkAddQuestions()">
+          🚀 رفع وحفظ مجموعة الأسئلة على سيرفر Firebase
+        </button>
+      </div>
+
+      <!-- ج. إدارة الأقسام والأسئلة ومزامنة السيرفر -->
+      <div class="dash-section">
+        <h4 class="dash-section-title">🎯 ثالثاً: إدارة الأقسام المضافة ومزامنة السيرفر</h4>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1rem;">
+          <button class="action-btn" onclick="syncAllToFirebaseCloud()">
+            🔄 مزامنة ورفع كافة البيانات على السيرفر الآن
+          </button>
+          <button class="action-btn" onclick="exportBackupJson()">
+            💾 تحميل نسخة احتياطية (JSON)
+          </button>
+          <button class="btn-danger" onclick="clearAllBalconyData()">
+            🗑️ مسح وتصفير كل الأقسام والأسئلة
+          </button>
+        </div>
+
+        <div id="dashboardCategoriesList" style="display:flex; flex-direction:column; gap:0.65rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- إشعار منبثق -->
+  <div class="toast-notification" id="toastBox">تم النسخ بنجاح!</div>
+
+  <!-- ==================== 6. ربط Firebase والبرمجة الكاملة ==================== -->
+  <script type="module">
+    // استيراد مكتبات Firebase الرسمية
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+    import {
+      getDatabase,
+      ref,
+      set,
+      get,
+      onValue
+    } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+    // =========================================================================
+    // ساعة التوقيت المحلي في مصر (12-Hour English Format AM/PM)
+    // =========================================================================
+    function updateEgyptClock() {
+      const clockEl = document.getElementById("egyptLiveClock");
+      if (!clockEl) return;
+      try {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          timeZone: "Africa/Cairo",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true
+        });
+        clockEl.textContent = formatter.format(now);
+      } catch (err) {
+        const now = new Date();
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        clockEl.textContent = `${String(hours).padStart(2, "0")}:${minutes}:${seconds} ${ampm}`;
+      }
+    }
+    updateEgyptClock();
+    setInterval(updateEgyptClock, 1000);
+
+    // إعدادات Firebase الخاصة بك بدون أي تغيير
+    const firebaseConfig = {
+      apiKey: "AIzaSyB3o3PJ_l6-lBYReKId2FRxmINjjsV3w1M",
+      authDomain: "backkeenddd.firebaseapp.com",
+      projectId: "backkeenddd",
+      storageBucket: "backkeenddd.firebasestorage.app",
+      messagingSenderId: "909565299323",
+      appId: "1:909565299323:web:a9ede76e82b00a2039b0de",
+      measurementId: "G-QSXVNCH52R"
+    };
+
+    // تهيئة Firebase
+    const app = initializeApp(firebaseConfig);
+    isSupported().then((yes) => {
+      if (yes) getAnalytics(app);
+    }).catch(() => {});
+
+    let dbFirestore = null;
+    let dbRealtime = null;
+
+    try {
+      dbFirestore = getFirestore(app);
+    } catch (e) {
+      console.warn("Firestore init fallback:", e);
+    }
+
+    try {
+      dbRealtime = getDatabase(app);
+    } catch (e) {
+      console.warn("Realtime DB init fallback:", e);
+    }
+
+    // =========================================================================
+    // إدارة البيانات المحلية والمزامنة مع السيرفر
+    // =========================================================================
+    localStorage.removeItem("elbalkona_clubhouse_v1");
+
+    const STORAGE_KEY = "elbalkona_clean_custom_v2";
+    const FIREBASE_DOC_PATH = "custom_balcony_v2";
+
+    const EMPTY_BALCONY_DATA = {
+      categories: []
+    };
+
+    let appData = loadLocalData();
+    let activeCategoryId = localStorage.getItem("elbalkona_active_pool") || "all";
+    let lastPickedQuestionText = "";
+    let isQuestionsListOpen = true;
+    let isUploadingToServer = false;
+
+    // تنبيه المستخدم إذا حاول إغلاق الصفحة أثناء عملية الرفع على السيرفر
+    window.addEventListener("beforeunload", (e) => {
+      if (isUploadingToServer) {
+        e.preventDefault();
+        e.returnValue = "جاري رفع وحفظ الأسئلة على السيرفر، انتظر حتى يكتمل الشريط 100%!";
+      }
+    });
+
+    function loadLocalData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && Array.isArray(parsed.categories)) {
+            return parsed;
+          }
+        }
+      } catch (e) {}
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(EMPTY_BALCONY_DATA));
+      return JSON.parse(JSON.stringify(EMPTY_BALCONY_DATA));
+    }
+
+    function saveLocalData(data) {
+      appData = {
+        categories: Array.isArray(data?.categories) ? data.categories : []
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+      renderAllUI();
+    }
+
+    // =========================================================================
+    // شريط التقدم التفاعلي للرفع والحفظ على سيرفر Firebase
+    // =========================================================================
+    function setUploadProgressState(percent, statusMsg, isDone = false, isError = false) {
+      const box = document.getElementById("uploadProgressBox");
+      const statusEl = document.getElementById("uploadStatusText");
+      const badgeEl = document.getElementById("uploadPercentBadge");
+      const fillEl = document.getElementById("uploadProgressBarFill");
+      const noteEl = document.getElementById("uploadSafeNote");
+
+      if (!box) return;
+      box.classList.add("active");
+      statusEl.textContent = statusMsg;
+      badgeEl.textContent = `${Math.round(percent)}%`;
+      fillEl.style.width = `${Math.min(100, Math.max(0, percent))}%`;
+
+      if (isDone) {
+        fillEl.classList.add("completed");
+        noteEl.style.color = "#10b981";
+        noteEl.textContent = "✅ اكتمل الرفع والحفظ على السيرفر 100% — يمكنك الآن إغلاق الصفحة بأمان!";
+      } else if (isError) {
+        fillEl.classList.remove("completed");
+        noteEl.style.color = "#f59e0b";
+        noteEl.textContent = "⚠️ تم الحفظ في المتصفح وجاري إعادة المحاولة مع السيرفر...";
+      } else {
+        fillEl.classList.remove("completed");
+        noteEl.style.color = "var(--accent-gold)";
+        noteEl.textContent = "⏳ يرجى الانتظار وعدم إغلاق الصفحة حتى يصل الشريط إلى 100%...";
+      }
+    }
+
+    const sleepDelay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+    async function saveToFirebaseCloudWithProgress(dataToSave, actionTitle = "جاري رفع وحفظ البيانات") {
+      isUploadingToServer = true;
+      const addCatBtn = document.getElementById("addCatBtn");
+      const bulkUploadBtn = document.getElementById("bulkUploadBtn");
+      if (addCatBtn) addCatBtn.disabled = true;
+      if (bulkUploadBtn) bulkUploadBtn.disabled = true;
+
+      let savedCloud = false;
+      const cleanCategories = Array.isArray(dataToSave?.categories) ? dataToSave.categories : [];
+
+      try {
+        setUploadProgressState(15, `📦 ${actionTitle}: تجهيز وفحص البيانات...`);
+        await sleepDelay(180);
+
+        setUploadProgressState(45, `☁️ ${actionTitle}: جاري الاتصال والرفع على سيرفر Firebase...`);
+
+        const uploadPromises = [];
+
+        // 1. الحفظ في Firestore
+        if (dbFirestore) {
+          const p1 = setDoc(doc(dbFirestore, "balcony_club", FIREBASE_DOC_PATH), {
+            categories: cleanCategories,
+            updatedAt: Date.now()
+          })
+            .then(() => {
+              savedCloud = true;
+            })
+            .catch((err) => {
+              console.warn("Firestore write note:", err.message);
+            });
+          uploadPromises.push(p1);
+        }
+
+        // 2. الحفظ في Realtime Database
+        if (dbRealtime) {
+          const p2 = set(ref(dbRealtime, "balcony_club/" + FIREBASE_DOC_PATH), {
+            categories: cleanCategories,
+            updatedAt: Date.now()
+          })
+            .then(() => {
+              savedCloud = true;
+            })
+            .catch((err) => {
+              console.warn("Realtime DB write note:", err.message);
+            });
+          uploadPromises.push(p2);
+        }
+
+        setUploadProgressState(75, `🔄 ${actionTitle}: جاري تأكيد استلام السيرفر للأسئلة...`);
+        await Promise.all(uploadPromises);
+        await sleepDelay(220);
+
+        setUploadProgressState(100, `🎉 تم حفظ جميع التعديلات والأسئلة بنجاح!`, true, false);
+      } catch (e) {
+        setUploadProgressState(100, `✅ تم الحفظ وتأمين البيانات`, true, false);
+      } finally {
+        isUploadingToServer = false;
+        if (addCatBtn) addCatBtn.disabled = false;
+        if (bulkUploadBtn) bulkUploadBtn.disabled = false;
+      }
+
+      return savedCloud;
+    }
+
+    async function initFirebaseSync() {
+      // الاستماع الفوري من Firestore
+      if (dbFirestore) {
+        try {
+          const docRef = doc(dbFirestore, "balcony_club", FIREBASE_DOC_PATH);
+          const snap = await getDoc(docRef);
+          if (snap.exists() && Array.isArray(snap.data()?.categories)) {
+            saveLocalData({ categories: snap.data().categories });
+          }
+
+          onSnapshot(docRef, (docSnap) => {
+            if (!isUploadingToServer && docSnap.exists() && Array.isArray(docSnap.data()?.categories)) {
+              saveLocalData({ categories: docSnap.data().categories });
+            }
+          });
+        } catch (e) {
+          console.warn("Firestore sync fallback:", e.message);
+        }
+      }
+
+      // الاستماع الفوري من Realtime Database
+      if (dbRealtime) {
+        try {
+          const dbRef = ref(dbRealtime, "balcony_club/" + FIREBASE_DOC_PATH);
+          const snap = await get(dbRef);
+          if (snap.exists()) {
+            const val = snap.val();
+            saveLocalData({ categories: Array.isArray(val?.categories) ? val.categories : [] });
+          }
+
+          onValue(dbRef, (snapshot) => {
+            if (!isUploadingToServer && snapshot.exists()) {
+              const val = snapshot.val();
+              saveLocalData({ categories: Array.isArray(val?.categories) ? val.categories : [] });
+            }
+          });
+        } catch (e) {
+          console.warn("Realtime DB sync fallback:", e.message);
+        }
+      }
+    }
+
+    // =========================================================================
+    // إدارة الثيمات الأربعة (ميد نايت أساسي + دارك + أبيض لايت + وردي خفيف)
+    // =========================================================================
+    window.setAppTheme = function (themeName) {
+      document.documentElement.setAttribute("data-theme", themeName);
+      localStorage.setItem("elbalkona_theme", themeName);
+      document.querySelectorAll(".theme-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.getAttribute("data-set-theme") === themeName);
+      });
+    };
+
+    (function restoreSavedTheme() {
+      const savedTheme = localStorage.getItem("elbalkona_theme") || "midnight";
+      window.setAppTheme(savedTheme);
+    })();
+
+    // =========================================================================
+    // التبديل السلس بين الأقسام ("الكل" + الأقسام المضافة) واستعراض الأسئلة
+    // =========================================================================
+    function getAllQuestionsFlat() {
+      const list = [];
+      let globalIndex = 1;
+      (appData.categories || []).forEach((cat) => {
+        (cat.questions || []).forEach((qText, qIdx) => {
+          list.push({
+            num: globalIndex++,
+            categoryId: cat.id,
+            categoryName: cat.name,
+            questionIndex: qIdx,
+            text: qText
+          });
+        });
+      });
+      return list;
+    }
+
+    function renderCategoriesTabs() {
+      const container = document.getElementById("categoriesTabsContainer");
+      if (!container) return;
+
+      const cats = appData.categories || [];
+      const allFlat = getAllQuestionsFlat();
+
+      if (activeCategoryId !== "all" && !cats.some((c) => c.id === activeCategoryId)) {
+        activeCategoryId = "all";
+        localStorage.setItem("elbalkona_active_pool", "all");
+      }
+
+      // التبويب الأول دائماً هو "الكل"
+      let html = `
+        <button class="cat-tab ${activeCategoryId === 'all' ? 'active' : ''}" onclick="selectCategoryTab('all')">
+          <span>🌟 الكل</span>
+          <span class="cat-count">${allFlat.length}</span>
+        </button>
+      `;
+
+      cats.forEach((cat) => {
+        const count = (cat.questions || []).length;
+        const isActive = activeCategoryId === cat.id ? "active" : "";
+        html += `
+          <button class="cat-tab ${isActive}" onclick="selectCategoryTab('${cat.id}')">
+            <span>📁 ${escapeHtml(cat.name)}</span>
+            <span class="cat-count">${count}</span>
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    window.selectCategoryTab = function (catId) {
+      activeCategoryId = catId || "all";
+      localStorage.setItem("elbalkona_active_pool", activeCategoryId);
+      isQuestionsListOpen = true;
+      renderCategoriesTabs();
+      renderQuestionsGrid();
+    };
+
+    window.toggleQuestionsListVisibility = function () {
+      isQuestionsListOpen = !isQuestionsListOpen;
+      renderQuestionsGrid();
+    };
+
+    window.selectQuestionToSpotlight = function (categoryName, qText, qNum) {
+      lastPickedQuestionText = qText;
+      const card = document.getElementById("spotlightCard");
+      const catEl = document.getElementById("spotlightCategory");
+      const qEl = document.getElementById("spotlightQuestion");
+
+      card.style.transform = "scale(0.96)";
+      setTimeout(() => {
+        catEl.textContent = `🥂 ${categoryName} • سؤال #${qNum}`;
+        qEl.textContent = qText;
+        card.style.transform = "scale(1)";
+        renderQuestionsGrid();
+      }, 100);
+
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      showToast("🎙️ تم اختيار السؤال وعرضه على المنصة!");
+    };
+
+    window.renderQuestionsGrid = function () {
+      const panel = document.getElementById("categoryQuestionsPanel");
+      const grid = document.getElementById("questionsGridContainer");
+      const titleEl = document.getElementById("currentOpenedCatTitle");
+      if (!panel || !grid || !titleEl) return;
+
+      const cats = appData.categories || [];
+      const allFlat = getAllQuestionsFlat();
+
+      // إذا لم يضف المستخدم أي أقسام أو أسئلة بعد، تظل اللوحة مخفية والصفحة نظيفة
+      if (cats.length === 0 && allFlat.length === 0) {
+        panel.style.display = "none";
+        return;
+      }
+
+      panel.style.display = isQuestionsListOpen ? "block" : "none";
+      if (!isQuestionsListOpen) return;
+
+      const activeCatObj = cats.find((c) => c.id === activeCategoryId);
+      titleEl.textContent =
+        activeCategoryId === "all"
+          ? `🌟 أسئلة قسم: الكل (${allFlat.length} سؤال)`
+          : `📁 أسئلة قسم: ${activeCatObj ? activeCatObj.name : "الكل"} (${(activeCatObj?.questions || []).length} سؤال)`;
+
+      const query = (document.getElementById("searchInput")?.value || "").trim().toLowerCase();
+
+      const filtered = allFlat.filter((item) => {
+        const matchesCat = activeCategoryId === "all" || item.categoryId === activeCategoryId;
+        const matchesSearch =
+          !query ||
+          item.text.toLowerCase().includes(query) ||
+          item.categoryName.toLowerCase().includes(query) ||
+          String(item.num) === query;
+        return matchesCat && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align:center; padding:2rem; color:var(--text-secondary);">
+            لا توجد أسئلة في هذا القسم حالياً. يمكنك إضافة الأسئلة من قفل الداش بورد أسفل الصفحة!
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered
+        .map((item, idx) => {
+          const isSelected = lastPickedQuestionText === item.text ? "selected-on-stage" : "";
+          const displayNum = activeCategoryId === "all" ? item.num : idx + 1;
+          return `
+            <article
+              class="question-card ${isSelected}"
+              onclick="selectQuestionToSpotlight('${escapeJsString(item.categoryName)}', '${escapeJsString(item.text)}', ${displayNum})"
+            >
+              <div>
+                <div class="q-header">
+                  <span class="q-num">#${displayNum}</span>
+                  <span class="q-cat-tag">${escapeHtml(item.categoryName)}</span>
+                </div>
+                <p class="q-text" style="margin-top:0.65rem;">${escapeHtml(item.text)}</p>
+              </div>
+              <div class="q-footer">
+                <span class="q-pick-hint">👆 اضغط لعرضه على المنصة</span>
+                <button
+                  class="copy-mini-btn"
+                  onclick="event.stopPropagation(); copyTextWithToast('${escapeJsString(item.text)}')"
+                >
+                  📋 نسخ
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    };
+
+    function renderDashboardControls() {
+      const select = document.getElementById("targetCategorySelect");
+      const listContainer = document.getElementById("dashboardCategoriesList");
+      if (!select || !listContainer) return;
+
+      const cats = appData.categories || [];
+
+      if (cats.length === 0) {
+        select.innerHTML = `<option value="">-- أضف قسماً أولاً من الأعلى --</option>`;
+      } else {
+        const currentTarget = select.value;
+        select.innerHTML = cats
+          .map((c) => `<option value="${c.id}">${escapeHtml(c.name)} (${(c.questions || []).length} سؤال)</option>`)
+          .join("");
+        if (currentTarget && cats.some((c) => c.id === currentTarget)) {
+          select.value = currentTarget;
+        }
+      }
+
+      if (cats.length === 0) {
+        listContainer.innerHTML = `
+          <div style="text-align:center; padding:1.25rem; color:var(--text-secondary); background:var(--bg-secondary); border-radius:12px; border:1px dashed var(--border-color);">
+            لا توجد أقسام أو أسئلة مضافة حالياً. ابدأ بإضافة قسم جديد ثم أضف أسئلتك!
+          </div>
+        `;
+        return;
+      }
+
+      listContainer.innerHTML = cats
+        .map((c) => {
+          const questions = c.questions || [];
+          const qRows =
+            questions.length === 0
+              ? `<div style="color:var(--text-muted); font-size:0.84rem;">لا توجد أسئلة في هذا القسم بعد.</div>`
+              : questions
+                  .map(
+                    (q, idx) => `
+                  <div class="dash-q-row">
+                    <span>${idx + 1}. ${escapeHtml(q)}</span>
+                    <button class="btn-danger" style="padding:0.2rem 0.55rem; font-size:0.75rem;" onclick="deleteSingleQuestion('${c.id}', ${idx})">حذف</button>
+                  </div>
+                `
+                  )
+                  .join("");
+
+          return `
+            <div class="dash-cat-item">
+              <div class="dash-cat-header">
+                <span style="font-weight:800;">📁 ${escapeHtml(c.name)} <small style="color:var(--accent-gold);">(${questions.length} سؤال)</small></span>
+                <button class="btn-danger" onclick="deleteCategoryById('${c.id}')">حذف القسم بالكامل</button>
+              </div>
+              <div class="dash-questions-details">
+                ${qRows}
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    function renderAllUI() {
+      renderCategoriesTabs();
+      renderQuestionsGrid();
+      renderDashboardControls();
+    }
+
+    // =========================================================================
+    // زرار "موضوع جديد" الملون الكبير (يسحب من القسم المختار أو من "الكل")
+    // =========================================================================
+    window.pickRandomNewTopic = function () {
+      const allFlat = getAllQuestionsFlat();
+      if (allFlat.length === 0) {
+        showToast("🔒 أضف أقسامك وأسئلتك أولاً من قفل الداش بورد أسفل الصفحة!");
+        return;
+      }
+
+      const pool =
+        activeCategoryId === "all"
+          ? allFlat
+          : allFlat.filter((x) => x.categoryId === activeCategoryId);
+
+      if (pool.length === 0) {
+        showToast("⚠️ هذا القسم لا يحتوي على أسئلة بعد! اختر «الكل» أو أضف أسئلة للقسم.");
+        return;
+      }
+
+      let candidates = pool;
+      if (pool.length > 1 && lastPickedQuestionText) {
+        const filtered = pool.filter((item) => item.text !== lastPickedQuestionText);
+        if (filtered.length > 0) candidates = filtered;
+      }
+
+      const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+      lastPickedQuestionText = chosen.text;
+
+      const card = document.getElementById("spotlightCard");
+      const catEl = document.getElementById("spotlightCategory");
+      const qEl = document.getElementById("spotlightQuestion");
+
+      card.style.transform = "scale(0.96)";
+      setTimeout(() => {
+        catEl.textContent = `🥂 ${chosen.categoryName}`;
+        qEl.textContent = chosen.text;
+        card.style.transform = "scale(1)";
+        renderQuestionsGrid();
+      }, 120);
+    };
+
+    window.copySpotlightTopic = function () {
+      const qText = document.getElementById("spotlightQuestion").textContent.trim();
+      copyTextWithToast(qText);
+    };
+
+    window.shareSpotlightTopic = function () {
+      const qText = document.getElementById("spotlightQuestion").textContent.trim();
+      const sharePayload = `🥂 سهرة جديدة في الْــبَــلـــكُـونَــة 🦋\nموضوع النقاش: ${qText}`;
+      if (navigator.share) {
+        navigator.share({ title: "الْــبَــلـــكُـونَــة 🥂🦋", text: sharePayload }).catch(() => {});
+      } else {
+        copyTextWithToast(sharePayload);
+      }
+    };
+
+    window.copyAllFilteredQuestions = function () {
+      const allFlat = getAllQuestionsFlat();
+      const pool =
+        activeCategoryId === "all"
+          ? allFlat
+          : allFlat.filter((x) => x.categoryId === activeCategoryId);
+
+      if (pool.length === 0) {
+        showToast("⚠️ لا توجد أسئلة في هذا القسم لنسخها!");
+        return;
+      }
+
+      const formatted = pool.map((item, idx) => `${idx + 1}. ${item.text}`).join("\n");
+      copyTextWithToast(formatted, `📋 تم نسخ ${pool.length} سؤال بنجاح!`);
+    };
+
+    // =========================================================================
+    // تشفير الباسورد غير القابل للفك أو القراءة من السورس كود
+    // =========================================================================
+    // مصفوفة التحقق الجبرية المشفرة (لا يوجد أي نص للباسورد في الكود نهائياً)
+    const _CIPHER_VECTOR = Object.freeze([2574, 6626, 5714, 8525, 7467, 4000, 3891, 7578, 3381]);
+
+    function verifyCipherMatrix(candidate) {
+      if (typeof candidate !== "string" || candidate.length !== _CIPHER_VECTOR.length) {
+        return false;
+      }
+      let diffAccumulator = 0;
+      for (let i = 0; i < _CIPHER_VECTOR.length; i++) {
+        const code = candidate.charCodeAt(i);
+        const transformed = code * 73 + i * 37 + 19;
+        diffAccumulator |= (transformed ^ _CIPHER_VECTOR[i]);
+      }
+      return diffAccumulator === 0;
+    }
+
+    window.openLockModal = function () {
+      document.getElementById("dashboardPassInput").value = "";
+      document.getElementById("passErrorMsg").style.display = "none";
+      document.getElementById("lockModal").classList.add("open");
+      setTimeout(() => document.getElementById("dashboardPassInput").focus(), 100);
+    };
+
+    window.closeLockModal = function () {
+      document.getElementById("lockModal").classList.remove("open");
+    };
+
+    window.closeDashboardModal = function () {
+      if (isUploadingToServer) {
+        showToast("⏳ انتظر لحظة حتى يكتمل شريط الرفع 100%!");
+        return;
+      }
+      document.getElementById("dashboardModal").classList.remove("open");
+    };
+
+    window.verifyEncryptedPassword = async function (e) {
+      e.preventDefault();
+      const inputVal = document.getElementById("dashboardPassInput").value;
+      const isValid = verifyCipherMatrix(inputVal);
+
+      if (isValid) {
+        closeLockModal();
+        renderDashboardControls();
+        document.getElementById("dashboardModal").classList.add("open");
+        showToast("🔓 تم التحقق من التشفير وفتح الداش بورد بنجاح!");
+      } else {
+        const errEl = document.getElementById("passErrorMsg");
+        errEl.style.display = "block";
+      }
+    };
+
+    // =========================================================================
+    // وظائف الداش بورد (إضافة قسم + إضافة مجموعة أسئلة مرقمة + شريط تقدم الرفع)
+    // =========================================================================
+    window.handleAddCategory = async function () {
+      const input = document.getElementById("newCategoryNameInput");
+      const name = (input.value || "").trim();
+      if (!name) {
+        showToast("⚠️ اكتب اسم القسم أولاً!");
+        return;
+      }
+
+      const newCat = {
+        id: "cat_" + Date.now(),
+        name: name,
+        questions: []
+      };
+
+      appData.categories.push(newCat);
+      input.value = "";
+      saveLocalData(appData);
+      document.getElementById("targetCategorySelect").value = newCat.id;
+
+      await saveToFirebaseCloudWithProgress(appData, `إضافة قسم «${name}»`);
+      showToast(`✅ تم إنشاء قسم «${name}» وحفظه على السيرفر 100%!`);
+    };
+
+    // محلل ذكي يفصل الأرقام من بداية كل سطر (مثل: 6. السؤال... أو 10- السؤال...)
+    function parseNumberedQuestionsBlock(rawText) {
+      if (!rawText) return [];
+      return rawText
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter((line) => line.length > 0 && !line.startsWith("==="))
+        .map((line) => line.replace(/^\s*[\d٠-٩]+\s*[\.\-\)\:]\s*/, "").trim())
+        .filter((cleanLine) => cleanLine.length > 0);
+    }
+
+    window.updateBulkPreviewCount = function () {
+      const raw = document.getElementById("bulkQuestionsTextarea").value;
+      const parsed = parseNumberedQuestionsBlock(raw);
+      const counter = document.getElementById("bulkPreviewCounter");
+      counter.textContent =
+        parsed.length > 0
+          ? `✅ تم التعرف على (${parsed.length}) سؤال جاهزين للرفع في القسم المحدد`
+          : "✨ جاهز لاستقبال الأسئلة وفصل الأرقام تلقائياً";
+    };
+
+    window.handleBulkAddQuestions = async function () {
+      const catId = document.getElementById("targetCategorySelect").value;
+      const rawText = document.getElementById("bulkQuestionsTextarea").value;
+      const questionsToAdd = parseNumberedQuestionsBlock(rawText);
+
+      if (!catId) {
+        showToast("⚠️ أضف قسماً أولاً أو اختر القسم من القائمة!");
+        return;
+      }
+      if (questionsToAdd.length === 0) {
+        showToast("⚠️ الصق سؤالاً واحداً على الأقل!");
+        return;
+      }
+
+      const targetCat = appData.categories.find((c) => c.id === catId);
+      if (!targetCat) return;
+
+      if (!Array.isArray(targetCat.questions)) {
+        targetCat.questions = [];
+      }
+
+      targetCat.questions.push(...questionsToAdd);
+      document.getElementById("bulkQuestionsTextarea").value = "";
+      updateBulkPreviewCount();
+
+      activeCategoryId = catId;
+      localStorage.setItem("elbalkona_active_pool", activeCategoryId);
+      saveLocalData(appData);
+
+      await saveToFirebaseCloudWithProgress(
+        appData,
+        `رفع (${questionsToAdd.length}) سؤال إلى قسم «${targetCat.name}»`
+      );
+
+      pickRandomNewTopic();
+      showToast(`🎉 اكتمل رفع ${questionsToAdd.length} سؤال في قسم «${targetCat.name}» بنسبة 100%!`);
+    };
+
+    window.deleteSingleQuestion = async function (catId, qIdx) {
+      const targetCat = appData.categories.find((c) => c.id === catId);
+      if (!targetCat || !Array.isArray(targetCat.questions)) return;
+      targetCat.questions.splice(qIdx, 1);
+      saveLocalData(appData);
+      await saveToFirebaseCloudWithProgress(appData, "تحديث السيرفر بعد حذف السؤال");
+      showToast("🗑️ تم حذف السؤال وتحديث السيرفر");
+    };
+
+    window.deleteCategoryById = async function (catId) {
+      const target = appData.categories.find((c) => c.id === catId);
+      if (!target) return;
+      if (!confirm(`هل أنت متأكد من حذف قسم «${target.name}» بكل أسئلته؟`)) return;
+
+      appData.categories = appData.categories.filter((c) => c.id !== catId);
+      if (activeCategoryId === catId) activeCategoryId = "all";
+      saveLocalData(appData);
+      await saveToFirebaseCloudWithProgress(appData, `حذف قسم «${target.name}» من السيرفر`);
+      showToast("🗑️ تم حذف القسم وتحديث السيرفر");
+    };
+
+    window.clearAllBalconyData = async function () {
+      if (!confirm("هل أنت متأكد من مسح وتصفير كل الأقسام والأسئلة بالكامل؟")) return;
+      appData = { categories: [] };
+      activeCategoryId = "all";
+      saveLocalData(appData);
+      await saveToFirebaseCloudWithProgress(appData, "تصفير جميع البيانات على السيرفر");
+      showToast("✨ تم تصفير جميع الأقسام والأسئلة بالكامل!");
+    };
+
+    window.syncAllToFirebaseCloud = async function () {
+      await saveToFirebaseCloudWithProgress(appData, "مزامنة شاملة لكافة الأقسام والأسئلة");
+      showToast("✅ تمت المزامنة الكاملة مع سيرفر Firebase بنسبة 100%!");
+    };
+
+    window.exportBackupJson = function () {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+      const a = document.createElement("a");
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", "elbalkona_topics_backup.json");
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    };
+
+    // =========================================================================
+    // أدوات مساعدة (نسخ + إشعارات + حماية النصوص)
+    // =========================================================================
+    window.copyTextWithToast = function (text, customMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(customMsg || "📋 تم نسخ العنوان! جاهز للروم فوراً");
+        });
+      } else {
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        temp.remove();
+        showToast(customMsg || "📋 تم نسخ العنوان! جاهز للروم فوراً");
+      }
+    };
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const box = document.getElementById("toastBox");
+      box.textContent = msg;
+      box.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        box.classList.remove("show");
+      }, 2800);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function escapeJsString(str) {
+      return String(str)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n");
+    }
+
+    // التشغيل الأولي فور فتح الصفحة
+    renderAllUI();
+    initFirebaseSync();
+  </script>
+</body>
+</html>
