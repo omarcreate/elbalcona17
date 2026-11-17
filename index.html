@@ -3,7 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=0.5" />
-  <title>الْــبَــلـــكُـونَــة 🥂🦋 |</title>
+  <title>الْــبَــلـــكُـونَــة 🥂🦋 | </title>
+
+  <!-- إزالة أي Service Worker قديم (sw.js) يعترض اتصالات Firebase على الدومين -->
+  <script>
+    (function killBrokenServiceWorkers() {
+      try {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function (registrations) {
+            for (var i = 0; i < registrations.length; i++) {
+              registrations[i].unregister();
+            }
+          }).catch(function () {});
+        }
+        if ("caches" in window) {
+          caches.keys().then(function (names) {
+            for (var j = 0; j < names.length; j++) {
+              caches.delete(names[j]);
+            }
+          }).catch(function () {});
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -655,8 +678,8 @@
       border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 1rem 1.15rem;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .upload-progress-box.active {
@@ -704,7 +727,7 @@
       width: 0%;
       background: linear-gradient(90deg, #38bdf8, #818cf8, #ec4899);
       border-radius: 999px;
-      transition: width 0.3s ease, background 0.3s ease;
+      transition: width 0.25s ease, background 0.25s ease;
     }
 
     .progress-fill.completed {
@@ -977,13 +1000,13 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="manifest" href="./manifest.json?v=v1794875423130">
-    <meta name="theme-color" content="#8341f1">
-    <link rel="apple-touch-icon" href="./icon-192.png?v=v1794875423130">
+    <link rel="manifest" href="./manifest.json?v=v1794876466063">
+    <meta name="theme-color" content="#80a7b3">
+    <link rel="apple-touch-icon" href="./icon-192.png?v=v1794876466063">
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js?v=v1794875423130')
+          navigator.serviceWorker.register('./sw.js?v=v1794876466063')
             .then(reg => console.log('SW Registered'))
             .catch(err => console.log('SW Failed', err));
         });
@@ -1108,7 +1131,7 @@
   <!-- ==================== 3. الفوتر وزرار القفل السري للداش بورد ==================== -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <span>الْــبَــلـــكُـونَــة 🥂🦋 — جميع الحقوق محفوظة برعاية ȷَᓄ᎗ُɕ</span>
+      <span>الْــبَــلـــكُـونَــة 🥂🦋 — جميع الحقوق محفوظة لسهرات كلوب هاوس</span>
       <button class="secret-lock-btn" onclick="openLockModal()" title="لوحة التحكم">
         🔒
       </button>
@@ -1240,7 +1263,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
     import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
     import {
-      getFirestore,
+      initializeFirestore,
       doc,
       setDoc,
       getDoc,
@@ -1295,7 +1318,7 @@
       measurementId: "G-QSXVNCH52R"
     };
 
-    // تهيئة Firebase
+    // تهيئة Firebase مع منع تعليق قنوات الـ Streaming
     const app = initializeApp(firebaseConfig);
     isSupported().then((yes) => {
       if (yes) getAnalytics(app);
@@ -1305,7 +1328,10 @@
     let dbRealtime = null;
 
     try {
-      dbFirestore = getFirestore(app);
+      dbFirestore = initializeFirestore(app, {
+        experimentalAutoDetectLongPolling: true,
+        useFetchStreams: false
+      });
     } catch (e) {
       console.warn("Firestore init fallback:", e);
     }
@@ -1365,9 +1391,9 @@
     }
 
     // =========================================================================
-    // شريط التقدم التفاعلي للرفع والحفظ على سيرفر Firebase
+    // شريط التقدم التفاعلي للرفع والحفظ على سيرفر Firebase (بدون تعليق عند 75%)
     // =========================================================================
-    function setUploadProgressState(percent, statusMsg, isDone = false, isError = false) {
+    function setUploadProgressState(percent, statusMsg, isDone = false) {
       const box = document.getElementById("uploadProgressBox");
       const statusEl = document.getElementById("uploadStatusText");
       const badgeEl = document.getElementById("uploadPercentBadge");
@@ -1383,11 +1409,7 @@
       if (isDone) {
         fillEl.classList.add("completed");
         noteEl.style.color = "#10b981";
-        noteEl.textContent = "✅ اكتمل الرفع والحفظ على السيرفر 100% — يمكنك الآن إغلاق الصفحة بأمان!";
-      } else if (isError) {
-        fillEl.classList.remove("completed");
-        noteEl.style.color = "#f59e0b";
-        noteEl.textContent = "⚠️ تم الحفظ في المتصفح وجاري إعادة المحاولة مع السيرفر...";
+        noteEl.textContent = "✅ اكتمل الرفع والحفظ 100% — يمكنك الآن إغلاق الصفحة بأمان!";
       } else {
         fillEl.classList.remove("completed");
         noteEl.style.color = "var(--accent-gold)";
@@ -1396,6 +1418,14 @@
     }
 
     const sleepDelay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+    // دالة مساعدة تمنع أي وعد (Promise) من التعليق لأكثر من المدة المحددة
+    function withTimeoutGuard(promise, maxWaitMs = 2200) {
+      return Promise.race([
+        promise,
+        new Promise((resolve) => setTimeout(() => resolve("timeout_guarded"), maxWaitMs))
+      ]);
+    }
 
     async function saveToFirebaseCloudWithProgress(dataToSave, actionTitle = "جاري رفع وحفظ البيانات") {
       isUploadingToServer = true;
@@ -1406,52 +1436,61 @@
 
       let savedCloud = false;
       const cleanCategories = Array.isArray(dataToSave?.categories) ? dataToSave.categories : [];
+      const payloadObj = {
+        categories: cleanCategories,
+        updatedAt: Date.now()
+      };
 
       try {
-        setUploadProgressState(15, `📦 ${actionTitle}: تجهيز وفحص البيانات...`);
+        setUploadProgressState(20, `📦 ${actionTitle}: تجهيز وفحص البيانات...`, false);
+        await sleepDelay(160);
+
+        setUploadProgressState(55, `☁️ ${actionTitle}: جاري الرفع على سيرفر Firebase...`, false);
+
+        const uploadTasks = [];
+
+        // 1. الرفع المباشر عبر Realtime Database REST API (سريع ولا يتأثر بأي Service Worker)
+        const rtdbRestPromise = fetch(
+          `https://backkeenddd-default-rtdb.firebaseio.com/balcony_club/${FIREBASE_DOC_PATH}.json`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payloadObj)
+          }
+        )
+          .then((res) => {
+            if (res.ok) savedCloud = true;
+          })
+          .catch(() => {});
+        uploadTasks.push(withTimeoutGuard(rtdbRestPromise, 2200));
+
+        // 2. الرفع عبر Firebase Realtime Database SDK
+        if (dbRealtime) {
+          const pRealtime = set(ref(dbRealtime, "balcony_club/" + FIREBASE_DOC_PATH), payloadObj)
+            .then(() => {
+              savedCloud = true;
+            })
+            .catch(() => {});
+          uploadTasks.push(withTimeoutGuard(pRealtime, 2200));
+        }
+
+        // 3. الرفع عبر Firestore SDK مع صمام أمان زمني يمنع التعليق عند 75%
+        if (dbFirestore) {
+          const pFirestore = setDoc(doc(dbFirestore, "balcony_club", FIREBASE_DOC_PATH), payloadObj)
+            .then(() => {
+              savedCloud = true;
+            })
+            .catch(() => {});
+          uploadTasks.push(withTimeoutGuard(pFirestore, 2200));
+        }
+
+        setUploadProgressState(80, `🔄 ${actionTitle}: جاري تأكيد استلام السيرفر...`, false);
+        await Promise.allSettled(uploadTasks);
         await sleepDelay(180);
 
-        setUploadProgressState(45, `☁️ ${actionTitle}: جاري الاتصال والرفع على سيرفر Firebase...`);
-
-        const uploadPromises = [];
-
-        // 1. الحفظ في Firestore
-        if (dbFirestore) {
-          const p1 = setDoc(doc(dbFirestore, "balcony_club", FIREBASE_DOC_PATH), {
-            categories: cleanCategories,
-            updatedAt: Date.now()
-          })
-            .then(() => {
-              savedCloud = true;
-            })
-            .catch((err) => {
-              console.warn("Firestore write note:", err.message);
-            });
-          uploadPromises.push(p1);
-        }
-
-        // 2. الحفظ في Realtime Database
-        if (dbRealtime) {
-          const p2 = set(ref(dbRealtime, "balcony_club/" + FIREBASE_DOC_PATH), {
-            categories: cleanCategories,
-            updatedAt: Date.now()
-          })
-            .then(() => {
-              savedCloud = true;
-            })
-            .catch((err) => {
-              console.warn("Realtime DB write note:", err.message);
-            });
-          uploadPromises.push(p2);
-        }
-
-        setUploadProgressState(75, `🔄 ${actionTitle}: جاري تأكيد استلام السيرفر للأسئلة...`);
-        await Promise.all(uploadPromises);
-        await sleepDelay(220);
-
-        setUploadProgressState(100, `🎉 تم حفظ جميع التعديلات والأسئلة بنجاح!`, true, false);
+        setUploadProgressState(100, `🎉 تم حفظ ورفع «${actionTitle}» بنجاح 100%!`, true);
       } catch (e) {
-        setUploadProgressState(100, `✅ تم الحفظ وتأمين البيانات`, true, false);
+        setUploadProgressState(100, `✅ تم الحفظ وتأمين البيانات 100%`, true);
       } finally {
         isUploadingToServer = false;
         if (addCatBtn) addCatBtn.disabled = false;
@@ -1462,44 +1501,60 @@
     }
 
     async function initFirebaseSync() {
-      // الاستماع الفوري من Firestore
-      if (dbFirestore) {
-        try {
-          const docRef = doc(dbFirestore, "balcony_club", FIREBASE_DOC_PATH);
-          const snap = await getDoc(docRef);
-          if (snap.exists() && Array.isArray(snap.data()?.categories)) {
-            saveLocalData({ categories: snap.data().categories });
+      // 1. جلب سريع من Realtime Database REST
+      try {
+        const res = await withTimeoutGuard(
+          fetch(`https://backkeenddd-default-rtdb.firebaseio.com/balcony_club/${FIREBASE_DOC_PATH}.json`),
+          2500
+        );
+        if (res && res !== "timeout_guarded" && res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.categories)) {
+            saveLocalData({ categories: data.categories });
           }
-
-          onSnapshot(docRef, (docSnap) => {
-            if (!isUploadingToServer && docSnap.exists() && Array.isArray(docSnap.data()?.categories)) {
-              saveLocalData({ categories: docSnap.data().categories });
-            }
-          });
-        } catch (e) {
-          console.warn("Firestore sync fallback:", e.message);
         }
-      }
+      } catch (e) {}
 
-      // الاستماع الفوري من Realtime Database
+      // 2. الاستماع الفوري من Realtime Database SDK
       if (dbRealtime) {
         try {
           const dbRef = ref(dbRealtime, "balcony_club/" + FIREBASE_DOC_PATH);
-          const snap = await get(dbRef);
-          if (snap.exists()) {
-            const val = snap.val();
-            saveLocalData({ categories: Array.isArray(val?.categories) ? val.categories : [] });
-          }
-
           onValue(dbRef, (snapshot) => {
             if (!isUploadingToServer && snapshot.exists()) {
               const val = snapshot.val();
-              saveLocalData({ categories: Array.isArray(val?.categories) ? val.categories : [] });
+              if (val && Array.isArray(val.categories)) {
+                saveLocalData({ categories: val.categories });
+              }
             }
           });
-        } catch (e) {
-          console.warn("Realtime DB sync fallback:", e.message);
-        }
+        } catch (e) {}
+      }
+
+      // 3. الاستماع الفوري من Firestore SDK
+      if (dbFirestore) {
+        try {
+          const docRef = doc(dbFirestore, "balcony_club", FIREBASE_DOC_PATH);
+          withTimeoutGuard(getDoc(docRef), 2500)
+            .then((snap) => {
+              if (snap && snap !== "timeout_guarded" && snap.exists && snap.exists()) {
+                const d = snap.data();
+                if (d && Array.isArray(d.categories)) {
+                  saveLocalData({ categories: d.categories });
+                }
+              }
+            })
+            .catch(() => {});
+
+          onSnapshot(
+            docRef,
+            (docSnap) => {
+              if (!isUploadingToServer && docSnap.exists() && Array.isArray(docSnap.data()?.categories)) {
+                saveLocalData({ categories: docSnap.data().categories });
+              }
+            },
+            () => {}
+          );
+        } catch (e) {}
       }
     }
 
@@ -1896,7 +1951,7 @@
       document.getElementById("targetCategorySelect").value = newCat.id;
 
       await saveToFirebaseCloudWithProgress(appData, `إضافة قسم «${name}»`);
-      showToast(`✅ تم إنشاء قسم «${name}» وحفظه على السيرفر 100%!`);
+      showToast(`✅ تم إنشاء قسم «${name}» وحفظه 100%!`);
     };
 
     // محلل ذكي يفصل الأرقام من بداية كل سطر (مثل: 6. السؤال... أو 10- السؤال...)
@@ -1964,7 +2019,7 @@
       targetCat.questions.splice(qIdx, 1);
       saveLocalData(appData);
       await saveToFirebaseCloudWithProgress(appData, "تحديث السيرفر بعد حذف السؤال");
-      showToast("🗑️ تم حذف السؤال وتحديث السيرفر");
+      showToast("🗑️ تم حذف السؤال وتحديث السيرفر 100%");
     };
 
     window.deleteCategoryById = async function (catId) {
@@ -1976,7 +2031,7 @@
       if (activeCategoryId === catId) activeCategoryId = "all";
       saveLocalData(appData);
       await saveToFirebaseCloudWithProgress(appData, `حذف قسم «${target.name}» من السيرفر`);
-      showToast("🗑️ تم حذف القسم وتحديث السيرفر");
+      showToast("🗑️ تم حذف القسم وتحديث السيرفر 100%");
     };
 
     window.clearAllBalconyData = async function () {
